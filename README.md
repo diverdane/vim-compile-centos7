@@ -1,5 +1,5 @@
 # vim-compile-centos7
-Script to compile VIM on CentOS 7, including Lua and Python support.
+Script to compile VIM on CentOS 7, including Lua, Python, and clipboard support.
 
 # Installation Instructions
 To install, run the following commands:

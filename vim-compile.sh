@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script to compile Vim with Lua and Python support on CentOS7
+# Script to compile Vim with Lua, Python, and clipboard support on CentOS7
 #
 
 # Create a local repo directory, and then a local repo using that directory
@@ -14,9 +14,13 @@ sudo yum groups mark convert
 yum groupinstall 'Development tools'
 
 # Install ncurses, Lua and Python developers' package
-yum install ncurses ncurses-devel
+sudo yum install ncurses ncurses-devel
 sudo yum install lua-devel
 sudo yum install python-devel
+
+# Install X11 Development tools for clipboard support
+sudo yum install libX11-devel libXtst-devel libXt-devel
+sudo yum install libXpm-devel libSM-devel
 
 # Get the latest version of the Vim source code, unpack it
 cd /usr/local/src
@@ -34,7 +38,10 @@ sudo ./configure --prefix=/usr \
                  --enable-fail-if-missing \
                  --enable-luainterp \
                  --with-lua-prefix=/usr \
-                 --enable-cscope
+                 --enable-cscope \
+                 --with-x=yes \
+                 --x-includes=/usr/include \
+                 --x-libraries=/usr/lib64
 
 # Make the binary and install it
 sudo make && sudo make install
@@ -60,8 +67,10 @@ if is_installed vim; then
         echo "ERROR: Lua support was not compiled."
     elif ! has_feature_flag vim +python ; then
         echo "ERROR: Python support was not compiled."
+    elif ! has_feature_flag vim +clipboard ; then
+        echo "ERROR: Clipboard support was not compiled."
     else
-        echo "Success: Vim supports Lua and Python."
+        echo "Success: Vim supports Lua, Python, and clipboard."
         exit 0
     fi
 else
