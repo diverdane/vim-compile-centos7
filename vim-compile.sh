@@ -20,13 +20,13 @@ yum groups mark convert
 yum groupinstall -y 'Development tools'
 
 # Install ncurses, Lua and Python developers' package
-yum install ncurses ncurses-devel
-yum install lua-devel
-yum install python-devel
+yum install -y ncurses ncurses-devel
+yum install -y lua-devel
+yum install -y python-devel
 
 # Install X11 Development tools for clipboard support
-yum install libX11-devel libXtst-devel libXt-devel
-yum install libXpm-devel libSM-devel
+yum install -y libX11-devel libXtst-devel libXt-devel
+yum install -y libXpm-devel libSM-devel
 
 # Get the latest version of the Vim source code, unpack it
 SRC_DIR=/usr/local/src
